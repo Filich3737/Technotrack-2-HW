@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <cassert>
 #include <clocale>
+#include <string.h>
 //------------------------------------------------------------------------------------------------
 
 char *scanFile(char *filename, int *nStringsPtr);
@@ -32,12 +33,11 @@ int main(int argv, char* argc[])
     char *text = scanFile(argc[1], &nStrings);
     assert(text != nullptr);
     assert(nStrings > 0);
-    printf("%d\n", nStrings);
 
-    /*char **strings = strs_from_txt(text, nStrings);
+    char **strings = strs_from_txt(text, nStrings);
     assert(strings != nullptr);
 
-    char **strings_sorted = sortText(text, nStrings);
+    /*char **strings_sorted = sortText(text, nStrings);
     assert(strings_sorted != nullptr);
 
     assert(addToFile(argc[1], text, strings_sorted) == 0);*/
@@ -75,4 +75,14 @@ char *scanFile(char *filename, int *nStringsPtr)
         if (buffer[i] == '\n')
             (*nStringsPtr)++;
     return buffer;
+}
+
+char **strs_from_txt(char* input_txt, int n)
+{
+    char **buf = (char**) calloc(n, sizeof(char*));
+    buf[0] = strchr(input_txt, '\n');
+    for (char *s = strchr(input_txt, '\n'); s; s = strchr(s, '\n'))
+    {
+
+    }
 }
